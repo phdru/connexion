@@ -86,6 +86,9 @@ class ResponseValidator(BaseDecorator):
         """
 
         def _wrapper(request, response):
+            if getattr(response, 'is_streamed', False):
+                return response
+
             try:
                 connexion_response = \
                     self.operation.api.get_connexion_response(response, self.mimetype)
