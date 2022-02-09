@@ -92,6 +92,9 @@ class ResponseValidator(BaseDecorator):
             try:
                 connexion_response = \
                     self.operation.api.get_connexion_response(response, self.mimetype)
+                if connexion_response.is_streamed:
+                    return response
+
                 self.validate_response(
                     connexion_response.body, connexion_response.status_code,
                     connexion_response.headers, request.url)
