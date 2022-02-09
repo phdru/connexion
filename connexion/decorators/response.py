@@ -93,6 +93,7 @@ class ResponseValidator(BaseDecorator):
                 connexion_response = \
                     self.operation.api.get_connexion_response(response, self.mimetype)
                 if connexion_response.is_streamed:
+                    logger.warning("Skipping response validation for streamed response.")
                     return response
 
                 self.validate_response(
